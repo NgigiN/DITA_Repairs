@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 dita-background">
+	<style>
+		.dita-background {
+			background-image: linear-gradient(45deg, #f8f9fa 25%, transparent 25%),
+				linear-gradient(-45deg, #f8f9fa 25%, transparent 25%),
+				linear-gradient(45deg, transparent 75%, #f8f9fa 75%),
+				linear-gradient(-45deg, transparent 75%, #f8f9fa 75%);
+			background-size: 100px 100px;
+			background-position: 0 0, 0 50px, 50px -50px, -50px 0px;
+			background-color: #f8f9fa;
+			/* Near white */
+			min-height: 100vh;
+			/* Ensure the container covers the full viewport height */
+			padding: 20px;
+			/* Add some padding around the content */
+		}
+	</style>
+	<div class="col-md-6">
+		<div class="card rounded">
+			<div class="card-header">
+				<h1 class="text-center">Registration</h1>
+			</div>
+			<div class="card-body">
+				{{ wtf.quick_form(form) }}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

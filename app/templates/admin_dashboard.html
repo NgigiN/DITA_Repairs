@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+	<h2>Admin Dashboard</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Admission Number</th>
+				<th>Laptop Brand</th>
+				<th>Serial Number</th>
+				<th>Description</th>
+				<th>Submission Date</th>
+				<th>Repair Status</th>
+				<th>Comments & Recommendations</th>
+				<th>Charges</th>
+				<th>Tranaction Code</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for repair in repairs %}
+			<tr>
+				<td>{{ repair.admission_number }}</td>
+				<td>{{ repair.laptop_brand }}</td>
+				<td>{{ repair.serial_number }}</td>
+				<td>{{ repair.description }}</td>
+				<td>{{ repair.submission_date.strftime('%Y-%m-%d %H:%M') }}</td>
+				<td>
+					<form action="{{ url_for('update_repair_status', repair_id=repair.id) }}"
+						method="post">
+						<select name="status">
+							{% for status in repair_status %}
+							<option value="{{ status.value }}" {% if repair.status==status
+								%} selected {% endif %}>
+								{{ status.value }}
+							</option>
+							{% endfor %}
+						</select>
+						<button type="submit">Update Status</button>
+					</form>
+
+				</td>
+				<td>
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+						data-bs-target="#exampleModal{{ repair.id }}">
+						Add Comment
+					</button>
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal{{ repair.id }}" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">
+										Repair Details and Comment</h5>
+									<button type="button" class="close"
+										data-bs-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<p><strong>Admission Number:</strong> {{
+										repair.admission_number }}</p>
+									<p><strong>Laptop Brand:</strong> {{
+										repair.laptop_brand }}</p>
+									<p><strong>Serial Number:</strong> {{
+										repair.serial_number }}</p>
+									<p><strong>Description:</strong> {{
+										repair.description }}</p>
+									<p><strong>Submission Date:</strong> {{
+										repair.submission_date.strftime('%Y-%m-%d
+										%H:%M') }}</p>
+									<hr>
+									<form action="{{ url_for('add_comment', repair_id=repair.id) }}"
+										method="post">
+										<div class="form-group">
+											<label for="comment">Add
+												Comment:</label>
+											<textarea class="form-control"
+												id="comment"
+												name="comment"
+												rows="3"></textarea>
+										</div>
+										<button type="submit"
+											class="btn btn-primary">Submit
+											Comment</button>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+				<td>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+						data-bs-target="#exampleModalCharges{{ repair.id }}">
+						Add Charges
+					</button>
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModalCharges{{ repair.id }}" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabelCharges"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title"
+										id="exampleModalLabelCharges">
+										Add Charges for Repair
+									</h5>
+									<button type="button" class="close"
+										data-bs-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form action="{{ url_for('add_charge', repair_id=repair.id) }}"
+										method="post">
+										<div class="form-group">
+											<label
+												for="charge">Charges:</label>
+											<input type="text"
+												class="form-control"
+												id="charge"
+												name="charge">
+										</div>
+										<button type="submit"
+											class="btn btn-primary">Add
+											Charges</button>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+				<td>{{ repair.transaction_code }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

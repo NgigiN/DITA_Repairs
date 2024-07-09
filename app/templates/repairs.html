@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+	<div class="row">
+		<div class="col">
+			<h1>Repairs</h1>
+			<div class="bg-light p-4 rounded">
+				<form action="" method="post" class="border p-4">
+					{{ form.hidden_tag() }}
+					<p>
+						{{ form.laptop_brand.label(class="form-label") }}
+						{{ form.laptop_brand(class="form-control") }}
+						{% for error in form.laptop_brand.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.serial_number.label(class="form-label") }}
+						{{ form.serial_number(class="form-control") }}
+						{% for error in form.serial_number.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.admission_number.label(class="form-label") }}
+						{{ form.admission_number(class="form-control") }}
+						{% for error in form.admission_number.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.description.label(class="form-label") }}
+						{{ form.description(class="form-control") }}
+						{% for error in form.description.errors %}
+						<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>{{ form.submit(class="btn btn-primary") }}</p>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="mt-5">
+		<p>DITA serves its members and the rest of the Daystar University community with repairs. DITA members
+			get a special discount! The DITA repair process is as follows:</p>
+		<ol>
+			<li>You make a request online for a repair.</li>
+			<li>You deliver your laptop to the DITA office.</li>
+			<li>Keep track of your repair from your profile section until it reaches "done".</li>
+			<li>You make your payment and input your transaction code in the profile section.</li>
+			<li>Pick up your device as soon as possible.</li>
+		</ol>
+		<p>DITA aims to be as transparent as possible as we service each repair.</p>
+	</div>
+</div>
+{% endblock %}

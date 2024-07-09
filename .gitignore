@@ -1,0 +1,5 @@
+config.py
+project.db
+.flaskenv
+__pycache__/
+migrations/

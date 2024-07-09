@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>User: {{ user.username }}</h1>
+<hr>
+
+<h2>Repairs</h2>
+{% if user_repairs %}
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Serial Number</th>
+			<th>Laptop Brand</th>
+			<th>Description</th>
+			<th>Submission Date</th>
+			<th>Status</th>
+			<th>Action</th>
+			<th>Charges</th>
+			<th>Transaction Code</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for repair in user_repairs %}
+		<tr>
+			<td>{{ repair.serial_number }}</td>
+			<td>{{ repair.laptop_brand }}</td>
+			<td>{{ repair.description }}</td>
+			<td>{{ repair.submission_date.strftime('%Y-%m-%d') }}</td>
+			<td>{{ repair.status.value }}</td>
+			<td><button type="button" class="btn btn-primary" data-bs-toggle="modal"
+					data-bs-target="#repairModal{{ repair.id }}">
+					View Details
+				</button>
+
+				<div class="modal fade" id="repairModal{{ repair.id }}" tabindex="-1" role="dialog"
+					aria-labelledby="repairModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="repairModalLabel">Repair
+									Details</h5>
+								<button type="button" class="btn-close"
+									data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p><strong>Serial Number:</strong> {{
+									repair.serial_number }}</p>
+								<p><strong>Laptop Brand:</strong> {{ repair.laptop_brand
+									}}</p>
+								<p><strong>Description:</strong> {{ repair.description
+									}}</p>
+								<p><strong>Submission Date:</strong> {{
+									repair.submission_date.strftime('%Y-%m-%d') }}
+								</p>
+								<p><strong>Status:</strong> {{ repair.status.value }}
+								</p>
+
+								<hr>
+								<h5>Admin Comments:</h5>
+								{% if repair.admin_comments %}
+								<ul>
+									{% for comment in repair.admin_comments %}
+									<li>{{ comment.comment }}</li>
+									{% endfor %}
+								</ul>
+								{% else %}
+								<p>No admin comments available.</p>
+								{% endif %}
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</td>
+			<td>{{ repair.charge }}</td>
+			<td>
+				<form action="{{ url_for('submit_transaction_code', repair_id=repair.id) }}"
+					method="post">
+					<input type="text" name="transaction_code" placeholder="Enter transaction code">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<p>No repairs found.</p>
+{% endif %}
+
+{% endblock %}

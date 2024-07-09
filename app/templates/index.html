@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hi, {{ current_user.username }}!</h1>
+
+<div class="text-center">
+	<div>
+		<div class="mt-5">
+			<h1>Welcome to the DITA Resource Lab!</h1>
+			<div class="row mt-5">
+				<div class="col-md-6">
+					<p class="lead">The DITA Resource lab is a place where all technology
+						enthusiasts come
+						to share ideas and collaborate. DITA strives to be a place where all
+						those who
+						love technology get to meet like-minded people and work together as iron
+						sharpens iron.</p>
+				</div>
+				<div class="col-md-6">
+
+					<img src="{{ url_for('static', filename='assets/sitted_students.jpeg') }}"
+						alt="DITA Resource Lab" class="img-fluid mt-3">
+				</div>
+			</div>
+		</div>
+		<div class="mt-5 d-flex justify-content-center bg-dark bg-opacity-50">
+			<div class="p-3 bg-light bg-opacity-50">
+				<div class="row">
+					<div class="col-md-6">
+						<img src="{{ url_for('static', filename='assets/hackathon.jpeg') }}"
+							alt="Resource Lab" class="img-fluid mt-3">
+					</div>
+					<div class="col-md-6">
+						<p class="lead">DITA engages in hackathons, DITA code nights, and offers
+							DITA
+							technical certificates. It is a place where people who are not
+							afraid to
+							share their skills with the world come to spread their wings and
+							have
+							the opportunity to grow.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="p-3 bg-light bg-opacity-50">
+		<div class="row mt-5">
+			<div class="col-md-6">
+				<h2 class="mb-4">DITA Membership</h2>
+				<p>DITA members get access to:</p>
+				<ul class="list-unstyled">
+					<li>Windows Updates</li>
+					<li>Stickers</li>
+					<li>Premium tickets to our events</li>
+					<li>Free Ethernet cables</li>
+				</ul>
+				<p>And much more!</p>
+				<p>To become a member, make a payment below:</p>
+				<button class="btn btn-primary">Make Payment</button>
+
+			</div>
+			<div class="col-md-6"><img src="{{ url_for('static', filename='assets/membership.jpeg') }}"
+					alt="membership" class="img-fluid mt-3"></div>
+		</div>
+		<div class="row mt-5 d-flex justify-content-center bg-dark bg-opacity-50">
+			<div class="col-md-6"><img src="{{ url_for('static', filename='assets/repairs.jpeg') }}"
+					alt="laptop repairs" class="img-fluid mt-3"></div>
+			<div class="col-md-6">
+				<h2 class="mb-4">Laptop Repairs</h2>
+				<p>Our services include:</p>
+				<ul class="list-unstyled">
+					<li>Windows recovery</li>
+					<li>Dual booting</li>
+					<li>Windows Office suite installation</li>
+					<li>RAM upgrades</li>
+					<li>Storage upgrades</li>
+				</ul>
+				<p>Need a repair? You can register one and then drop your device as soon as
+					possible at
+					our lab</p>
+				<a href="{{ url_for('repairs') }}"><button class="btn btn-primary mb-2">Register a
+						Repair</button></a>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+</div>
+
+{% endblock %}
